@@ -128,7 +128,7 @@ class CDTrainer():
         if os.path.exists(os.path.join(self.checkpoint_dir, ckpt_name)):
             self.logger.write('loading last checkpoint...\n')
             # load the entire checkpoint
-            checkpoint = torch.load(os.path.join(self.checkpoint_dir, ckpt_name), map_location=self.device)
+            checkpoint = torch.load(os.path.join(self.checkpoint_dir, ckpt_name), map_location=self.device, weights_only=False)
 
             # update net_G states
             self.net_G.load_state_dict(checkpoint['model_G_state_dict'], strict=False)

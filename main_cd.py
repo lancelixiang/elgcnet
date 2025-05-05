@@ -32,10 +32,10 @@ if __name__ == '__main__':
     parser.add_argument('--vis_root', default='./vis', type=str)
 
     # data
-    parser.add_argument('--num_workers', default=8, type=int)
+    parser.add_argument('--num_workers', default=4, type=int)
     parser.add_argument('--dataset', default='CDDataset', type=str)
     parser.add_argument('--data_name', default='LEVIR', type=str)
-    parser.add_argument('--batch_size', default=16, type=int)
+    parser.add_argument('--batch_size', default=8, type=int)
     parser.add_argument('--split', default="train", type=str)
     parser.add_argument('--split_val', default="val", type=str)
 
