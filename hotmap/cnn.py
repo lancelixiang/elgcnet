@@ -131,7 +131,7 @@ def main():
     grad_cam = GradCAM(model, target_layer)
     
     # 图像路径 (可以是本地文件或URL)
-    img_path = "demo/both.png"
+    img_path = "hotmap/both.png"
     
     # 预处理图像
     input_tensor, original_img = preprocess_image(img_path)
