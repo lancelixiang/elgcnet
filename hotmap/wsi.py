@@ -1,12 +1,11 @@
 import openslide
 import torch
-import torch.nn as nn
 import numpy as np
 import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 from torchvision import transforms
-
+import torchvision.models as models
 
 class WSIGradCAM:
     def __init__(self, model, target_layer, device="cuda"):
@@ -86,8 +85,8 @@ class WSIGradCAM:
         )
 
         # 遍历所有patch
-        for i in range(n_w):
-            for j in range(n_h):
+        for i in range(4):
+            for j in range(4):
                 x = i * stride
                 y = j * stride
 
@@ -160,8 +159,11 @@ def visualize_wsi_cam(wsi_path, heatmap, alpha=0.5, level=0):
 # 使用示例
 if __name__ == "__main__":
     # 1. 加载模型
-    model = torch.hub.load("pytorch/vision", "resnet50", pretrained=True)
+    print("Loading model...")
+    # model = torch.hub.load("pytorch/vision", "resnet50", pretrained=True)
+    model = models.resnet50(pretrained=True)
     model.eval()
+    print("Model loaded.")
 
     # 2. 选择目标层
     target_layer = model.layer4[-1].conv3
@@ -171,7 +173,7 @@ if __name__ == "__main__":
 
     # 4. 处理WSI (替换为你的WSI路径)
     wsi_path = "hotmap/wsi.svs"
-    heatmap = wsi_gradcam.process_wsi(wsi_path, patch_size=256, level=1)
+    heatmap = wsi_gradcam.process_wsi(wsi_path, patch_size=512, level=0)
 
     # 5. 可视化结果
     visualize_wsi_cam(wsi_path, heatmap)
